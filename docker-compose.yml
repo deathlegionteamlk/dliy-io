@@ -1,20 +1,14 @@
-# =============================================================================
 # dliy io - Production docker-compose
-# Brings up the full stack: app + Postgres + Redis (for queue/sessions)
-# =============================================================================
+# Pulls the pre-built image from Docker Hub instead of building locally.
+#
 # Usage:
-#   cp .env.example .env
+#   curl -o docker-compose.yml https://raw.githubusercontent.com/deathlegionteamlk/dliy-io/main/docker-compose.yml
 #   docker compose up -d
 #   open http://localhost:3000
-# =============================================================================
 
 services:
-  # ---------- App (Next.js standalone) ----------
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: dliyio/app:latest
+    image: deathlegion/dliy-io:latest
     container_name: dliyio-app
     restart: unless-stopped
     ports:
@@ -26,13 +20,8 @@ services:
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-change-me-in-production}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:-change-me-32-byte-hex-key}
-      # Optional integrations:
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
-      SLACK_CLIENT_ID: ${SLACK_CLIENT_ID:-}
-      SLACK_CLIENT_SECRET: ${SLACK_CLIENT_SECRET:-}
-      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
-      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
     volumes:
       - app-data:/app/data
     depends_on:
@@ -43,57 +32,6 @@ services:
     networks:
       - dliyio
 
-  # ---------- Worker (executes workflow runs) ----------
-  worker:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: dliyio/app:latest
-    container_name: dliyio-worker
-    restart: unless-stopped
-    command: ["node", "worker.js"]
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: "postgresql://dliyio:${POSTGRES_PASSWORD:-dliyio}@postgres:5432/dliyio?schema=public"
-      REDIS_URL: "redis://redis:6379"
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-change-me-32-byte-hex-key}
-      SANDBOX_RUNTIME: docker  # runs Python/JS code in nested containers
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # for sandboxed code execution
-      - worker-data:/app/data
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    networks:
-      - dliyio
-
-  # ---------- Webhook Gateway ----------
-  webhook:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: dliyio/app:latest
-    container_name: dliyio-webhook
-    restart: unless-stopped
-    command: ["node", "webhook.js"]
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: "postgresql://dliyio:${POSTGRES_PASSWORD:-dliyio}@postgres:5432/dliyio?schema=public"
-      REDIS_URL: "redis://redis:6379"
-      WEBHOOK_BASE_URL: ${WEBHOOK_BASE_URL:-http://localhost:3000/webhook}
-    ports:
-      - "8081:8081"
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    networks:
-      - dliyio
-
-  # ---------- PostgreSQL ----------
   postgres:
     image: postgres:16-alpine
     container_name: dliyio-postgres
@@ -113,7 +51,6 @@ services:
     networks:
       - dliyio
 
-  # ---------- Redis (queue + cache + pub/sub) ----------
   redis:
     image: redis:7-alpine
     container_name: dliyio-redis
@@ -135,6 +72,5 @@ networks:
 
 volumes:
   app-data:
-  worker-data:
   postgres-data:
   redis-data:

@@ -1,6 +1,17 @@
-<div align="center">
+# dliy io
 
-![dliy io](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,18,24&height=220&section=header&text=dliy%20io&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Self-hosted%20automation%20that%20doesn%27t%20bend%20you%20over%20on%20pricing&descAlignY=62&descAlign=50)
+[![Docker Pulls](https://img.shields.io/docker/pulls/deathlegion/dliy-io.svg)](https://hub.docker.com/r/deathlegion/dliy-io)
+[![Docker Image Size](https://img.shields.io/docker/image-size/deathlegion/dliy-io/latest)](https://hub.docker.com/r/deathlegion/dliy-io/tags)
+[![Docker Automated build](https://img.shields.io/docker/automated/deathlegion/dliy-io)](https://hub.docker.com/r/deathlegion/dliy-io)
+[![GitHub release](https://img.shields.io/github/v/release/deathlegionteamlk/dliy-io)](https://github.com/deathlegionteamlk/dliy-io/releases)
+[![GitHub stars](https://img.shields.io/github/stars/deathlegionteamlk/dliy-io.svg)](https://github.com/deathlegionteamlk/dliy-io/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/deathlegionteamlk/dliy-io.svg)](https://github.com/deathlegionteamlk/dliy-io/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/deathlegionteamlk/dliy-io.svg)](https://github.com/deathlegionteamlk/dliy-io/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-deathlegion%2Fdliy--io-blue)](https://hub.docker.com/r/deathlegion/dliy-io)
+
+> **The open-source, self-hostable workflow automation platform.**
+> A more powerful and flexible alternative to Zapier — built with TypeScript and Node.js.
 
 **by Death Legion Team**
 
@@ -10,65 +21,56 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-<br>
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=2800&pause=1000&color=8B5CF6&center=true&vCenter=true&width=650&lines=Zapier+but+you+own+the+damn+thing.;115%2B+integrations.+No+per-task+billing.;Drag.+Drop.+Ship.+Repeat." alt="Typing SVG" />
-
-</div>
-
 ---
 
-## What is this thing
+## What is dliy io?
 
-Zapier works fine until you actually use it. Then the bill shows up and you're paying per task like it's 2014 SaaS hostage pricing, and the second you need to do something slightly custom you're stuck writing janky workarounds instead of just... writing code.
+**dliy io** is a low-code-first, full-power-second automation platform. Visually wire
+together hundreds of pre-built integrations, drop in custom JavaScript or Python
+where you need it, and orchestrate AI agents that reason over your data — all from
+a self-hosted instance you fully control.
 
-**dliy io** is what happens when you get fed up with that. Drag-and-drop node editor for the easy 80%, drop in raw JavaScript or Python for the annoying 20%, wire in AI agents that can actually reason over your data, and run the whole thing on your own infrastructure. Nobody's metering your tasks. Nobody sees your data but you.
-
-| Feature | What it actually does |
+| Feature | Description |
 |---|---|
-| **Visual Node Editor** | React Flow-powered canvas. Wire up triggers, actions, logic, and AI nodes into whatever DAG you need. |
-| **52+ Built-in Integrations** | Slack, GitHub, OpenAI, Anthropic, Stripe, Notion, Airtable, Postgres, MongoDB, AWS — already there. |
-| **Custom Code Nodes** | JS or Python, inline, sandboxed in isolated Docker containers so a bad script doesn't take down your instance. |
-| **Native AI Agents** | Tools, memory, reasoning loops. RAG search and LLM calls baked in, not bolted on. |
-| **Self-Hostable** | One Docker command and it's running. Your data stays on your boxes, full stop. |
-| **Enterprise-Ready** | Workspaces, RBAC, audit logs, envelope-encrypted credentials — the stuff procurement actually asks about. |
+| **Visual Node Editor** | Drag-and-drop flowchart editor powered by React Flow. Connect triggers, actions, logic, and AI nodes into any DAG. |
+| **52+ Built-in Integrations** | Slack, GitHub, OpenAI, Anthropic, Stripe, Notion, Airtable, Postgres, MongoDB, AWS, and many more — out of the box. |
+| **Custom Code Nodes** | Write JavaScript or Python inline. Sandboxed execution with isolated Docker containers. |
+| **Native AI Agents** | Autonomous agents with tools, memory, and reasoning loops. RAG search, LLM calls, and chat engines built in. |
+| **Self-Hostable** | One-command Docker deployment. Your data never leaves your infrastructure. |
+| **Enterprise-Ready** | Workspaces, RBAC, audit logs, envelope-encrypted credentials. |
 
 ---
 
 ## Quick Start
 
-<div align="center">
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&duration=1800&pause=600&color=22C55E&center=true&vCenter=true&width=450&lines=Pick+your+poison.+All+three+work." alt="Quick start" />
-</div>
-
-### Option 1: Docker (production, just go)
+### Option 1: Docker (Recommended for production)
 
 ```bash
 git clone https://github.com/death-legion/dliy-io.git
 cd dliy-io
 cp .env.example .env
-# Edit .env — set NEXTAUTH_SECRET and ENCRYPTION_KEY, don't skip this
+# Edit .env — set NEXTAUTH_SECRET and ENCRYPTION_KEY
 docker compose up -d
 ```
 
-Hit `http://localhost:3000`. You're up. That's the whole setup, no fucking around.
+Open `http://localhost:3000` — you're running dliy io.
 
-### Option 2: Local Dev
+### Option 2: Local Development
 
 ```bash
 git clone https://github.com/death-legion/dliy-io.git
 cd dliy-io
 bun install
 cp .env.example .env
-bun run db:push       # initializes the database
-bun run dev           # http://localhost:3000
+bun run db:push       # initialize the database
+bun run dev           # start on http://localhost:3000
 ```
 
-### Option 3: Just the Infra
+### Option 3: Docker Dev Stack (just infra)
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d
-# Postgres, Redis, MailHog — for when you only need the backing services
+# Starts Postgres, Redis, MailHog for local development
 ```
 
 ---
@@ -113,8 +115,6 @@ docker compose -f docker-compose.dev.yml up -d
 
 ## Project Structure
 
-Yeah, it's a big monorepo. We're not going to pretend otherwise — this thing does a lot, so the tree is long. Skim it, bookmark it, come back when you need it.
-
 ```
 dliy-io/
 │
@@ -130,7 +130,7 @@ dliy-io/
 ├── .vscode/               # Editor config (settings, launch, extensions, tasks)
 ├── .husky/                # Git hooks
 ├── .changeset/            # Versioned releases
-├── .storybook/             # Component playground
+├── .storybook/            # Component playground
 ├── .devcontainer/         # VS Code remote dev
 │
 ├── apps/
@@ -382,7 +382,7 @@ dliy-io/
 
 ## Built-in Integrations
 
-115+ nodes across 11 categories. If your stack is even halfway normal, it's already covered.
+dliy io ships with **115+ nodes** across 11 categories:
 
 | Category | Count | Examples |
 |---|---|---|
@@ -401,8 +401,6 @@ dliy-io/
 ---
 
 ## Building a Custom Node
-
-Sometimes the 52+ built-ins don't cut it and you need to talk to some weird internal API nobody else has heard of. That's what this is for.
 
 ```typescript
 import { defineNode } from '@dliyio/node-sdk';
@@ -470,12 +468,12 @@ const workflow = defineWorkflow({
 docker compose up -d
 ```
 
-That's genuinely it. The compose file spins up:
+That's it. The compose file provisions:
 - **app** — Next.js web app (port 3000)
 - **worker** — Workflow execution worker
 - **webhook** — Public webhook gateway (port 8081)
-- **postgres** — PostgreSQL 16, healthcheck included
-- **redis** — Redis 7, for queue / cache / pub-sub
+- **postgres** — PostgreSQL 16 (with healthcheck)
+- **redis** — Redis 7 (for queue, cache, pub/sub)
 
 ### Kubernetes
 
@@ -495,40 +493,34 @@ terraform apply
 
 ## Security
 
-We don't take this lightly — your credentials and workflow data are the whole point of self-hosting in the first place.
-
-- **Credentials at rest**: AES-256-GCM envelope encryption, KMS-managed master key
-- **Code sandbox**: Every Python/JS execution runs in an isolated Docker container, resource-limited, no network by default — a bad script can't phone home
-- **Audit log**: Every execution, credential access, and config change gets logged
+- **Credentials at rest**: AES-256-GCM envelope encryption (KMS-managed master key)
+- **Code sandbox**: Each Python/JavaScript execution runs in an isolated Docker container with resource limits and no network by default
+- **Audit log**: Every workflow execution, credential access, and config change is logged
 - **RBAC**: Workspace, organization, and global permission scopes
-- **Webhook auth**: HMAC-SHA256 signatures on every webhook trigger
+- **Webhook auth**: HMAC-SHA256 signatures on all webhook triggers
 
 ---
 
 ## Roadmap
 
-<div align="center">
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=15&duration=2200&pause=800&color=8B5CF6&center=true&vCenter=true&width=500&lines=v0.1+shipped.+v0.2+is+coming.+Help+if+you+want." alt="Roadmap" />
-</div>
-
 ### Shipped (v0.1)
 
-- [x] Visual node editor (React Flow) — drag-and-drop, multi-handle nodes
+- [x] Visual node editor (React Flow) with drag-and-drop, multi-handle nodes
 - [x] **115+ pre-built integrations** across 11 categories
 - [x] JavaScript + Python code nodes (sandboxed)
-- [x] **Real AI integration via GLM-4.6** (z-ai-web-dev-sdk) — LLM and Agent nodes hit the live API, not a mock
-- [x] AI agents with tools, memory, reasoning loops
+- [x] **Real AI integration via GLM-4.6** (z-ai-web-dev-sdk) — LLM and Agent nodes call the live API
+- [x] AI agents with tools, memory, and reasoning loops
 - [x] LLM calls, RAG search, AI memory, image gen, transcription, sentiment, classification, translation, summarization
-- [x] **AI Workflow Builder** — describe a workflow in plain English, it generates the graph for you
-- [x] **Expression engine** — `{{ $json.field }}`, `{{ $items[0].name }}`, `{{ $json.value > 100 }}` actually evaluate, not just placeholder syntax
+- [x] **AI Workflow Builder** — describe a workflow in plain English, AI generates the graph
+- [x] **Expression engine** — `{{ $json.field }}`, `{{ $items[0].name }}`, `{{ $json.value > 100 }}` actually evaluate
 - [x] Workflow execution engine (topological + queue-driven) with live per-node status
 - [x] **Command palette** (Cmd/Ctrl+K) for fast navigation and node insertion
-- [x] Dark / light mode toggle
-- [x] Dashboard with KPIs, execution history, 7-day activity chart
-- [x] Credentials manager with envelope encryption
+- [x] **Dark / light mode** toggle
+- [x] Dashboard with KPIs + execution history + 7-day activity chart
+- [x] Credentials manager with envelope encryption messaging
 - [x] 6 pre-built workflow templates
 - [x] **API Docs explorer** with cURL/JS/Python examples
-- [x] **Custom Node Builder** — design a node visually, export the TypeScript SDK code
+- [x] **Custom Node Builder** — visually design a node, export TypeScript SDK code
 - [x] **Execution Timeline** (Gantt-style) showing per-node timing
 - [x] Docker + docker-compose + Helm chart for self-host
 
@@ -545,7 +537,8 @@ We don't take this lightly — your credentials and workflow data are the whole 
 
 ## Contributing
 
-PRs are genuinely welcome — this isn't a "we'll ignore your PR for 8 months" kind of project. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) first so we're not arguing about formatting in review.
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and
+[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before opening a PR.
 
 ```bash
 # Fork & clone
@@ -566,16 +559,14 @@ bun run dev
 
 ## License
 
-**MIT** — see [LICENSE](LICENSE). Do what you want with it.
+**MIT** — see [LICENSE](LICENSE).
 
 ---
 
 ## Credits
 
-<div align="center">
+**dliy io** is built and maintained by the **Death Legion Team**.
 
-![Footer](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12,18,24&height=120&section=footer&text=Built%20by%20Death%20Legion%20Team&fontSize=26&fontColor=ffffff&animation=fadeIn)
-
-Built on [Next.js](https://nextjs.org/), [React Flow](https://reactflow.dev/), [Prisma](https://www.prisma.io/), [Tailwind CSS](https://tailwindcss.com/), and [shadcn/ui](https://ui.shadcn.com/).
-
-</div>
+Built with [Next.js](https://nextjs.org/), [React Flow](https://reactflow.dev/),
+[Prisma](https://www.prisma.io/), [Tailwind CSS](https://tailwindcss.com/),
+and [shadcn/ui](https://ui.shadcn.com/).
