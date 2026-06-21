@@ -16,8 +16,15 @@ export type ViewId =
   | 'integrations'
   | 'settings'
   | 'api-docs'
+  | 'api-tokens'
   | 'node-builder'
-  | 'ai-builder';
+  | 'ai-builder'
+  | 'marketplace'
+  | 'webhook-inspector'
+  | 'scheduled-jobs'
+  | 'audit-log'
+  | 'analytics'
+  | 'vector-db';
 
 interface UIState {
   view: ViewId;

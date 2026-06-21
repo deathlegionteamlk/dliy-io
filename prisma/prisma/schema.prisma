@@ -1,0 +1,72 @@
+// dliy io - Workflow Automation Platform
+// Prisma schema for workflow persistence, credentials, and execution history
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workflows Workflow[]
+  credentials Credential[]
+}
+
+model Workflow {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  active      Boolean  @default(false)
+  graph       String   // JSON-serialized React Flow graph (nodes + edges)
+  tags        String?  // comma-separated tags
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  executions  Execution[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Credential {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   // oauth2 | api_key | basic | bearer
+  service     String   // slack | github | openai | etc.
+  data        String   // JSON-encrypted credential payload (placeholder)
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Execution {
+  id          String   @id @default(cuid())
+  workflowId  String
+  workflow    Workflow @relation(fields: [workflowId], references: [id])
+  status      String   @default("pending") // pending | running | success | failed | canceled
+  trigger     String?  // manual | webhook | schedule
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  duration    Int?     // milliseconds
+  logs        String?  // JSON-serialized log entries
+  error       String?
+  createdAt   DateTime @default(now())
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    String   // marketing | sales | devops | ai | productivity
+  graph       String   // JSON-serialized React Flow graph
+  author      String?
+  installs    Int      @default(0)
+  createdAt   DateTime @default(now())
+}

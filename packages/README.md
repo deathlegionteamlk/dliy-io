@@ -1,0 +1,63 @@
+# `packages/`
+
+Shared TypeScript libraries published to npm. Each package is independently versioned via Changesets. Consumed by apps/ and services/ via workspace links during dev, and via npm install in production.
+
+## Planned contents
+
+- `workflow-sdk`
+- `execution-engine`
+- `expression-engine`
+- `node-sdk`
+- `node-generator`
+- `credentials-sdk`
+- `trigger-sdk`
+- `ai-sdk`
+- `api-sdk`
+- `workflow-validator`
+- `execution-runner`
+- `webhook-runner`
+- `sandbox-runner`
+- `queue-engine`
+- `scheduler`
+- `event-bus`
+- `telemetry`
+- `logging`
+- `monitoring`
+- `audit`
+- `notifications`
+- `permissions`
+- `rbac`
+- `abac`
+- `billing-core`
+- `licensing`
+- `cloud-core`
+- `tenancy`
+- `workspace-core`
+- `marketplace-sdk`
+- `analytics-core`
+- `ai-agents`
+- `ai-memory`
+- `ai-tools`
+- `ai-evals`
+- `ai-prompts`
+- `ai-rag`
+- `ai-orchestrator`
+- `chat-engine`
+- `config`
+- `database`
+- `cache`
+- `search`
+- `shared`
+- `utils`
+- `crypto`
+- `logger`
+- `errors`
+- `constants`
+- `types`
+- `contracts`
+- `api-types`
+- `design-system`
+- `ui-components`
+- `icons`
+- `themes`
+- `testing`

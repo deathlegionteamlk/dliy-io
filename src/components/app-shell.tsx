@@ -9,7 +9,8 @@ import { cn } from '@/lib/utils';
 import {
   LayoutDashboard, Workflow, KeyRound, Sparkles, Activity,
   Boxes, Settings, Zap, Github, BookOpen, Code2, Boxes as NodesIcon,
-  Wand2, Moon, Sun, Command,
+  Wand2, Moon, Sun, Command, Package, Webhook, Clock, History,
+  BarChart3, Database, Shield,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TOTAL_NODE_COUNT } from '@/lib/nodes/registry';
@@ -23,16 +24,23 @@ import { CommandPalette } from '@/components/command-palette/command-palette';
 import { AIBuilderDialog } from '@/components/ai-builder/ai-builder-dialog';
 
 const NAV: { id: ViewId; label: string; icon: typeof LayoutDashboard; description: string }[] = [
-  { id: 'dashboard',    label: 'Dashboard',    icon: LayoutDashboard, description: 'Overview & stats' },
-  { id: 'editor',       label: 'Editor',       icon: Workflow,        description: 'Visual workflow builder' },
-  { id: 'ai-builder',   label: 'AI Builder',   icon: Wand2,           description: 'Chat → workflow' },
-  { id: 'templates',    label: 'Templates',    icon: Sparkles,        description: 'Pre-built workflows' },
-  { id: 'integrations', label: 'Integrations', icon: Boxes,           description: `${TOTAL_NODE_COUNT}+ nodes` },
-  { id: 'node-builder', label: 'Node Builder', icon: NodesIcon,       description: 'Build custom nodes' },
-  { id: 'executions',   label: 'Executions',   icon: Activity,        description: 'Run history' },
-  { id: 'credentials',  label: 'Credentials',  icon: KeyRound,        description: 'API keys & secrets' },
-  { id: 'api-docs',     label: 'API Docs',     icon: Code2,           description: 'REST API reference' },
-  { id: 'settings',     label: 'Settings',     icon: Settings,        description: 'Platform config' },
+  { id: 'dashboard',    label: 'Dashboard',          icon: LayoutDashboard, description: 'Overview & stats' },
+  { id: 'editor',       label: 'Editor',             icon: Workflow,        description: 'Visual workflow builder' },
+  { id: 'ai-builder',   label: 'AI Builder',         icon: Wand2,           description: 'Chat → workflow' },
+  { id: 'templates',    label: 'Templates',          icon: Sparkles,        description: 'Pre-built workflows' },
+  { id: 'integrations', label: 'Integrations',       icon: Boxes,           description: `${TOTAL_NODE_COUNT}+ nodes` },
+  { id: 'marketplace',  label: 'Marketplace',        icon: Package,         description: 'Community nodes' },
+  { id: 'node-builder', label: 'Node Builder',       icon: NodesIcon,       description: 'Build custom nodes' },
+  { id: 'vector-db',    label: 'Vector DB',          icon: Database,        description: 'RAG knowledge base' },
+  { id: 'executions',   label: 'Executions',         icon: Activity,        description: 'Run history' },
+  { id: 'scheduled-jobs', label: 'Scheduled Jobs',   icon: Clock,           description: 'Cron triggers' },
+  { id: 'webhook-inspector', label: 'Webhooks',      icon: Webhook,         description: 'Live webhook requests' },
+  { id: 'analytics',    label: 'Analytics',          icon: BarChart3,       description: 'Metrics & cost' },
+  { id: 'audit-log',    label: 'Audit Log',          icon: History,         description: 'Tamper-evident trail' },
+  { id: 'credentials',  label: 'Credentials',        icon: KeyRound,        description: 'API keys & secrets' },
+  { id: 'api-docs',     label: 'API Docs',           icon: Code2,           description: 'REST API reference' },
+  { id: 'api-tokens',   label: 'API Tokens',         icon: Shield,          description: 'Personal access tokens' },
+  { id: 'settings',     label: 'Settings',           icon: Settings,        description: 'Platform config' },
 ];
 
 function ThemeToggle() {
