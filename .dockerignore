@@ -1,0 +1,47 @@
+# Build artifacts
+.next/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data + logs
+data/
+logs/
+*.log
+*.db
+*.db-journal
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+coverage/
+.nyc_output/
+
+# Misc
+.git/
+.husky/
+.changeset/
+.storybook/
+.devcontainer/
+
+# Files
+*.md
+!README.md
+LICENSE
+Dockerfile*
+docker-compose*

@@ -1,0 +1,43 @@
+name: Publish SDK
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-npm:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1
+      - run: bun install --frozen-lockfile
+
+      - name: Build packages
+        run: |
+          for pkg in packages/*/; do
+            if [ -f "$pkg/package.json" ]; then
+              (cd "$pkg" && bun run build 2>/dev/null || true)
+            fi
+          done
+
+      - name: Configure npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}" >> ~/.npmrc
+
+      - name: Publish packages
+        run: |
+          for pkg in packages/*/; do
+            if [ -f "$pkg/package.json" ] && [ -f "$pkg/README.md" ]; then
+              (cd "$pkg" && npm publish --access public) || echo "Skipped $pkg"
+            fi
+          done
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

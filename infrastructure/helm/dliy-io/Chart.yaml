@@ -1,0 +1,19 @@
+apiVersion: v2
+name: dliy-io
+description: dliy io - Open-source workflow automation platform
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+home: https://github.com/death-legion/dliy-io
+sources:
+  - https://github.com/death-legion/dliy-io
+maintainers:
+  - name: Death Legion Team
+    url: https://github.com/death-legion
+keywords:
+  - workflow
+  - automation
+  - zapier
+  - low-code
+  - ai
+  - self-hosted

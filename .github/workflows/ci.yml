@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .next/cache
+          key: ${{ runner.os }}-deps-${{ hashFiles('bun.lock') }}
+          restore-keys: ${{ runner.os }}-deps-
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Type check
+        run: bun run tsc --noEmit
+
+      - name: Build
+        run: bun run build
+        env:
+          DATABASE_URL: "file::memory:"
+          NEXTAUTH_SECRET: test-secret
+          ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000"
+
+      - name: Test
+        run: bun run test
+        env:
+          DATABASE_URL: "file::memory:"
+          NODE_ENV: test

@@ -1,0 +1,34 @@
+# CODEOWNERS — dliy io
+# Each line: <path pattern> <@owner or @team>
+
+# Default owners for everything
+*                           @death-legion/core
+
+# Core engine
+/packages/execution-engine/ @death-legion/engine
+/packages/workflow-sdk/     @death-legion/engine
+/packages/expression-engine/ @death-legion/engine
+
+# AI subsystem
+/packages/ai-*/             @death-legion/ai
+/nodes/ai/                  @death-legion/ai
+
+# Integrations
+/integrations/              @death-legion/integrations
+/nodes/                     @death-legion/integrations
+
+# Frontend / web app
+/apps/web/                  @death-legion/frontend
+/packages/design-system/    @death-legion/frontend
+/packages/ui-components/    @death-legion/frontend
+
+# Infrastructure
+/infrastructure/            @death-legion/devops
+/Dockerfile                 @death-legion/devops
+/docker-compose*.yml        @death-legion/devops
+/.github/workflows/         @death-legion/devops
+
+# Security
+/security/                  @death-legion/security
+/credentials/               @death-legion/security
+SECURITY.md                 @death-legion/security

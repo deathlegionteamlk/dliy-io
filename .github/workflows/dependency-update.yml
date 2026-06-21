@@ -1,0 +1,25 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Monday 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  dependabot:
+    name: Dependabot Auto-merge
+    runs-on: ubuntu-latest
+    if: github.repository == 'death-legion/dliy-io'
+    permissions:
+      pull-requests: write
+      contents: write
+    strategy:
+      matrix:
+        ecosystem: [npm, github-actions, docker]
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target: minor
+          auto-merge: true
+          exclude-scopes: major
