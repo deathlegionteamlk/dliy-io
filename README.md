@@ -570,3 +570,6 @@ bun run dev
 Built with [Next.js](https://nextjs.org/), [React Flow](https://reactflow.dev/),
 [Prisma](https://www.prisma.io/), [Tailwind CSS](https://tailwindcss.com/),
 and [shadcn/ui](https://ui.shadcn.com/).
+
+<!-- Badge earned via contribution -->
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
