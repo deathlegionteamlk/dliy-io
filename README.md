@@ -573,3 +573,7 @@ and [shadcn/ui](https://ui.shadcn.com/).
 
 <!-- Badge earned via contribution -->
 ![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+
+<!-- DL Code Badge -->
+![Status](https://img.shields.io/badge/status-active-success?style=flat-square)
+
